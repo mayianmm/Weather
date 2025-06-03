@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Virginia Weather Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eef;
+      padding: 20px;
+    }
+    .weather-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .weather-card {
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      width: 220px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+    .city-name {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .temperature {
+      font-size: 32px;
+      margin: 10px 0;
+    }
+    .condition {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Virginia Weather</h1>
+  <div class="weather-container" id="weather-container"></div>
+
+  <script>
+    const API_KEY = "jGdYwnx9RwvOWQX5rDYuwuaPVv7ukGTP";  // <-- Replace with your real Tomorrow.io API key
+    const locations = [
+      { name: "Harrisonburg", lat: 38.4496, lon: -78.8689 },
+      { name: "Charlottesville", lat: 38.0293, lon: -78.4767 },
+      { name: "Farmville", lat: 37.3021, lon: -78.3919 },
+      { name: "Staunton", lat: 38.1496, lon: -79.0717 },
+      { name: "Lexington", lat: 37.7840, lon: -79.4428 }
+    ];
+
+    async function fetchWeather(lat, lon) {
+      const url = `https://api.tomorrow.io/v4/weather/realtime?location=${lat},${lon}&apikey=${API_KEY}`;
+      const response = await fetch(url);
+      const data = await response.json();
+      return data;
+    }
+
+    async function displayWeather() {
+      const container = document.getElementById("weather-container");
+
+      for (const loc of locations) {
+        try {
+          const weatherData = await fetchWeather(loc.lat, loc.lon);
+          const values = weatherData.data.values;
+          const temperature = Math.round(values.temperature);
+          const condition = values.weatherCodeFull || "Unknown";
+
+          const card = document.createElement("div");
+          card.className = "weather-card";
+          card.innerHTML = `
+            <div class="city-name">${loc.name}</div>
+            <div class="temperature">${temperature}°C</div>
+            <div class="condition">${condition}</div>
+          `;
+          container.appendChild(card);
+        } catch (error) {
+          console.error("Error fetching weather for", loc.name, error);
+        }
+      }
+    }
+
+    displayWeather();
+  </script>
+</body>
+</html>
