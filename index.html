@@ -1,12 +1,34 @@
-<a class="weatherwidget-io" href="https://forecast7.com/en/38d45n78d87/harrisonburg/" data-label_1="HARRISONBURG" data-label_2="WEATHER" data-theme="original" data-days="0">HARRISONBURG WEATHER</a>
-<script>
-!function(d,s,id){
-  var js,fjs=d.getElementsByTagName(s)[0];
-  if(!d.getElementById(id)){
-    js=d.createElement(s);
-    js.id=id;
-    js.src='https://weatherwidget.io/js/widget.min.js';
-    fjs.parentNode.insertBefore(js,fjs);
-  }
-}(document,'script','weatherwidget-io-js');
-</script>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Virginia Weather Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+    .weather-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    iframe {
+      border: none;
+      width: 300px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Weather for 5 Virginia Cities</h1>
+  <div class="weather-grid">
+    <iframe src="https://weather.tomorrow.io/?location=Harrisonburg,VA"></iframe>
+    <iframe src="https://weather.tomorrow.io/?location=Charlottesville,VA"></iframe>
+    <iframe src="https://weather.tomorrow.io/?location=Farmville,VA"></iframe>
+    <iframe src="https://weather.tomorrow.io/?location=Staunton,VA"></iframe>
+    <iframe src="https://weather.tomorrow.io/?location=Lexington,VA"></iframe>
+  </div>
+</body>
+</html>
